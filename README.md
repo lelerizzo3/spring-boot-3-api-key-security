@@ -19,7 +19,7 @@ To get started with this project, you will need to have the following installed 
 
 To build and run the project, follow these steps:
 
-* Clone the repository: `git clone https://github.com/.git`
+* Clone the repository: `git clone https://github.com/lelerizzo3/spring-boot-3-api-key-security.git`
 * Navigate to the project directory: cd spring-boot-security-jwt
 * Build the project: mvn clean install
 * Run the project: mvn spring-boot:run 
