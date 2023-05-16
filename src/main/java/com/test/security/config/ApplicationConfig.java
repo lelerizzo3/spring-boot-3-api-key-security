@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class ApplicationConfig {
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return apiKey -> apiKeyService.findByApiKey(apiKey);
+    return apiKey -> apiKeyService.findByEncodedApiKey(apiKey);
   }
 
   @Bean
@@ -39,7 +40,7 @@ public class ApplicationConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    return new Pbkdf2PasswordEncoder("secret",0,10,100);
   }
 
 }

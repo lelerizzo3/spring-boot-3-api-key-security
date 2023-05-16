@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApiKeyService {
 
-  public User findByApiKey(String apiKey){
-    if(apiKey.equals("123"))
+  public User findByEncodedApiKey(String encodedApiKey){
+    if(encodedApiKey.equals("4f514d87cfb1a7d650637d65"))
       return User.builder()
               .firstname("lele")
               .lastname("rizzo")

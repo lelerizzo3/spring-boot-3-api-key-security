@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,6 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class ApiKeyAuthenticationFilter extends OncePerRequestFilter {
 
   private final ApiKeyService apiKeyService;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   protected void doFilterInternal(
@@ -34,7 +36,7 @@ public class ApiKeyAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-    user = apiKeyService.findByApiKey(apiKey);
+    user = apiKeyService.findByEncodedApiKey(passwordEncoder.encode(apiKey));
 
     if (user!=null) {
       UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
